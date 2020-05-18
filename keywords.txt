@@ -1,0 +1,21 @@
+###########################################
+# Syntax Coloring Map For LegoHallRotEncoder
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+LegoHallRotEncoder	KEYWORD1
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+counter	KEYWORD2
+dir	KEYWORD2
+resetCounter	KEYWORD2
+printDebug	KEYWORD2
+
+###########################################
+# Constants (LITERAL1)
+###########################################
