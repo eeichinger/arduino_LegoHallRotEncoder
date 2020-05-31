@@ -46,18 +46,9 @@ int8_t read_rotary() {
   return ( rot_enc_table[( _prevNextCode )]);
 }
 
-void hall1_changed() {
-  noInterrupts();
+/*static*/ void LegoHallRotEncoder::rotenc_changed() {
   _dir = read_rotary();
   _counter += _dir;
-  interrupts();
-}
-
-void hall2_changed() {
-  noInterrupts();
-  _dir = read_rotary();
-  _counter += _dir;
-  interrupts();
 }
 
 LegoHallRotEncoder::LegoHallRotEncoder(uint8_t pin1, uint8_t pin2) {
@@ -70,8 +61,10 @@ LegoHallRotEncoder::LegoHallRotEncoder(uint8_t pin1, uint8_t pin2) {
   PIN_HALL2 = pin2;
   pinMode(pin1, INPUT_PULLUP);
   pinMode(pin2, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(pin1), hall1_changed, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(pin2), hall2_changed, CHANGE);
+  if (pin1 >=2 && pin1<=3 && pin2>=2 && pin2<=3) { // use external interrupts
+    attachInterrupt(digitalPinToInterrupt(pin1), LegoHallRotEncoder::rotenc_changed, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(pin2), LegoHallRotEncoder::rotenc_changed, CHANGE);
+  }
 }
 
 void LegoHallRotEncoder::resetCounter() {
